@@ -7,20 +7,29 @@ host = "reddwarf.cs.rit.edu"
 user = "p320_01h"
 tables = ["person", "Request", "Tool"]
 
+
 def insert():
-    #TODO: implement
+    # TODO: implement
+    return None
+
 
 def update():
-    #TODO: implement
+    # TODO: implement
+    return None
+
 
 def delete():
-    #TODO: implement
+    # TODO: implement
+    return None
+
 
 def connect():
-    #TODO: implement
+    # TODO: implement
+    return None
+
 
 def main():
-    #TODO: implement
+    # TODO: implement
     print("We're still working here... please bear with us...")
 
 if __name__ == "__main__":
