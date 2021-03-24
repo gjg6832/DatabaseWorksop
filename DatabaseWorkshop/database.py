@@ -1,7 +1,7 @@
-#Database API
-#  Provides connection to the database on reddwarf to perform CRUD operations
+# Database API
+#   Provides connection to the database on reddwarf to perform CRUD operations
 #
-#  Nate Wren
+# Nate Wren
 
 host = "reddwarf.cs.rit.edu"
 user = "p320_01h"
@@ -31,6 +31,7 @@ def connect():
 def main():
     # TODO: implement
     print("We're still working here... please bear with us...")
+
 
 if __name__ == "__main__":
     main()
