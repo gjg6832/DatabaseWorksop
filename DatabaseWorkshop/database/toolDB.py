@@ -17,7 +17,7 @@ def insertTool(barcode, name, description, categories, purchasedate, purchasepri
 
 def getTool(barcode):
     cursor = connect.getCursor()
-    cursor.execute("select barcode from person where barcode = %s", [barcode])
+    cursor.execute("select barcode from tool where barcode = %s", [barcode])
     tool = cursor.fetchone()
     connect.closeCursor(cursor)
     return tool
