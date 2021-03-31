@@ -6,7 +6,7 @@ Author: Greg Godlewski
 from DatabaseWorkshop import connect
 
 
-def insertPerson(username, password, first_name, last_name, email):
+def insertPerson(username, password, first_name, last_name, email, creationdate, laccesdate):
     """
     Inserts a user into the person table
     :param username: the username
@@ -17,8 +17,8 @@ def insertPerson(username, password, first_name, last_name, email):
     :return: NONE
     """
     cursor = connect.getCursor()
-    person = [username, password, first_name, last_name, email]
-    cursor.execute("INSERT INTO person (username, password, firstname, lastname, email) VALUES (%s, %s, %s, %s, %s)",
+    person = [username, password, first_name, last_name, email, creationdate, laccesdate]
+    cursor.execute("INSERT INTO person (username, password, firstname, lastname, email, creationdate, laccessdate) VALUES (%s, %s, %s, %s, %s, %s, %s)",
                    person)
     connect.connectCommit()
     connect.closeCursor(cursor)

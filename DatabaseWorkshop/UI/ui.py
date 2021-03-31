@@ -16,11 +16,14 @@ def menu(action):
         help()
     elif action == "-c":
         create()
-    if action == "-s":
+    elif action == "-s":
         search()
+    elif action == "-a":
+        access()
     else:
         print(action,"Invalid action. Use the menu below to pick a valid action")
         help()
+
 
 
 def help():
@@ -30,6 +33,7 @@ def help():
     """
     print()
     print("----- HELP -----")
+    print("-a: Access")
     print("-c: Create")
     print("-h: Help")
     print("-s: Search")

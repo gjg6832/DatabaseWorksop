@@ -5,11 +5,11 @@ Author: Greg Godlewski
 from DatabaseWorkshop import connect
 
 
-def insertTool(barcode, name, description, categories, sharable, requested):
+def insertTool(barcode, name, description, categories, purchasedate, purchaseprice, sharable, requested):
     cursor = connect.getCursor()
-    tool = [barcode, name, description, categories, sharable, requested]
+    tool = [barcode, name, description, categories, purchasedate, purchaseprice, sharable, requested]
     cursor.execute(
-        "INSERT INTO tool (barcode, name, description, categories, shareable, requested) VALUES (%s, %s, %s, %s, %s, %s)",
+        "INSERT INTO tool (barcode, name, description, categories, purchasedate, purchaseprice, shareable, requested) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
         tool)
     connect.connectCommit()
     connect.closeCursor(cursor)
@@ -44,3 +44,11 @@ def printTool(barcode):
     print()
 
     connect.closeCursor(cursor)
+
+def deleteTool(barcode):
+    """
+    Deletes a tool
+    :param barcode:
+    :return:
+    """
+
