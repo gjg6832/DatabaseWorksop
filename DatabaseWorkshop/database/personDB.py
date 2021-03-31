@@ -35,3 +35,11 @@ def getPerson(username):
     person = cursor.fecthone()
     connect.closeCursor(cursor)
     return person
+
+def getPassword(username):
+    cursor = connect.getCursor()
+    cursor.execute("select password from person where username = %s", [username])
+    password = cursor.fecthone()
+    connect.closeCursor(cursor)
+    return password
+

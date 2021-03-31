@@ -23,7 +23,7 @@ def getTool(barcode):
     return tool
 
 
-def printTool(barcode):
+def printToolBarcode(barcode):
     """
     prints a tool
     :param barcode:

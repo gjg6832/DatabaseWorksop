@@ -28,7 +28,7 @@ def searchBarcode():
     :return:
     """
     idNum = input("Please enter the tool's ID number: ")
-    printTool(idNum)
+    printToolBarcode(idNum)
 
 def searchCategory():
     pass

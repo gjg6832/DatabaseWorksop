@@ -20,6 +20,8 @@ def create():
         newUser()
     elif newAction == "-t":
         newTool()
+    elif newAction == "-r":
+        newRequest()
 
 
 def newUser():
@@ -61,3 +63,11 @@ def newTool():
         shareable = None
     requested = False
     toolDB.insertTool(barcode, name, description,  categories, purchasedate, purchaseprice, shareable, requested)
+
+
+def newRequest():
+    print()
+    id = random.randint(1000,1999)
+    userrequesting = input("Enter username: ")
+    inputPassword = input("Enter password: ")
+    password = personDB.getPassword(userrequesting)
