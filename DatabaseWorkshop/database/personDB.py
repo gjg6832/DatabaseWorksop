@@ -4,6 +4,7 @@ Author: Greg Godlewski
 """
 
 from DatabaseWorkshop import connect
+from datetime import date
 
 
 def insertPerson(username, password, first_name, last_name, email, creationdate, laccesdate):
@@ -32,14 +33,23 @@ def getPerson(username):
     """
     cursor = connect.getCursor()
     cursor.execute("select username from person where username = %s", [username])
-    person = cursor.fecthone()
+    person = cursor.fetchone()
     connect.closeCursor(cursor)
-    return person
+    return person[0]
+
 
 def getPassword(username):
     cursor = connect.getCursor()
-    password = cursor.execute("select password from person where username = %s", [username])
-
+    cursor.execute("select password from person where username = %s", [username])
+    password = cursor.fetchone()
     connect.closeCursor(cursor)
-    return password
+    return password[0]
+
+
+def editDateAndTime(username):
+    today = date.today()
+    cursor = connect.getCursor()
+    cursor.execute("update person set laccessdate = %s where username = %s", [today, username])
+    connect.connectCommit()
+    connect.closeCursor(cursor)
 

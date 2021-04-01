@@ -5,6 +5,8 @@ Author: Greg Godlewski
 """
 from DatabaseWorkshop.UI.createUI import *
 from DatabaseWorkshop.UI.toolUI import *
+from DatabaseWorkshop.UI.accessUI import *
+
 
 def menu(action):
     """

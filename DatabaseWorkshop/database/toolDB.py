@@ -17,10 +17,56 @@ def insertTool(barcode, name, description, categories, purchasedate, purchasepri
 
 def getTool(barcode):
     cursor = connect.getCursor()
-    cursor.execute("select barcode from tool where barcode = %s", [barcode])
+    cursor.execute("select * from tool where barcode = %s", [barcode])
     tool = cursor.fetchone()
     connect.closeCursor(cursor)
     return tool
+
+def addToolOwner(username, barcode):
+    """
+    add a tool to a user
+    :param username:
+    :param barcode:
+    :return:
+    """
+    cursor = connect.getCursor()
+    cursor.execute("update tool set owner = %s where barcode = %s", [username, barcode])
+    connect.connectCommit()
+    connect.closeCursor(cursor)
+
+
+def deleteToolOwner(barcode):
+    """
+    delete a tool to a user
+    :param username:
+    :param barcode:
+    :return:
+    """
+    cursor = connect.getCursor()
+    cursor.execute("update tool set owner = %s where barcode = %s", [None, barcode])
+    connect.connectCommit()
+    connect.closeCursor(cursor)
+
+
+def editToolName(name, barcode):
+    cursor = connect.getCursor()
+    cursor.execute("update tool set name = %s where barcode = %s", [name, barcode])
+    connect.connectCommit()
+    connect.closeCursor(cursor)
+
+
+def editToolDescrip(descrip, barcode):
+    cursor = connect.getCursor()
+    cursor.execute("update tool set description = %s where barcode = %s", [descrip, barcode])
+    connect.connectCommit()
+    connect.closeCursor(cursor)
+
+
+def editToolCategorie(categorie, barcode):
+    cursor = connect.getCursor()
+    cursor.execute("update tool set categories = %s where barcode = %s", [categorie, barcode])
+    connect.connectCommit()
+    connect.closeCursor(cursor)
 
 
 def printToolBarcode(barcode):

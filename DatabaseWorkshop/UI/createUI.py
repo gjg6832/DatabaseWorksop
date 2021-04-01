@@ -74,6 +74,8 @@ def newRequest():
     password = personDB.getPassword(userrequesting)
     barcode = input("Enter barcode of the tool: ")
     tool = toolDB.getTool(barcode)
+    if tool[6] == 'flase':
+        print("Tool is not Available")
     if tool[8] == None:
         print("This tool does not have a owner")
         print("Cant make a request")
