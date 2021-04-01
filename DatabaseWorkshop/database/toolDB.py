@@ -140,6 +140,25 @@ def printToolCategory(category):
 
     connect.closeCursor(cursor)
 
+def printToolOwner(owner):
+    """
+    prints a tool
+    :param category:
+    :return:
+    """
+    cursor = connect.getCursor()
+    cursor.execute(
+        "select name from tool where owner = %s",
+        [owner])
+    row = cursor.fetchall()
+    print()
+    print("Tool names:")
+    for item in row:
+        print("Tool name: " + str(item[0]))
+    print()
+
+    connect.closeCursor(cursor)
+
 def printAvailableTools():
     """
     prints al available tools

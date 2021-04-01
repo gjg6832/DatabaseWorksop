@@ -50,6 +50,8 @@ def catalogTool():
             print()
     elif newAction == "-v":
         print()
+        print("List of Tools you own")
+        toolDB.printToolOwner(username)
     elif newAction == "-d":
         print()
         barcode = input("Enter barcode of tool wanted to delete: ")
