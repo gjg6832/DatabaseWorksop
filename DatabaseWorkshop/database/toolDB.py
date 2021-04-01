@@ -75,5 +75,19 @@ def printToolName(name):
 
     connect.closeCursor(cursor)
 
-
-
+def printToolCategory(category):
+    """
+    prints a tool
+    :param barcode:
+    :return:
+    """
+    cursor = connect.getCursor()
+    cursor.execute(
+        "select name from tool where categories = %s",
+        [category])
+    row = cursor.fetchall()
+    for item in row:
+        print()
+        print("Tool name: " + str(item[0]))
+        print()
+    connect.closeCursor(cursor)

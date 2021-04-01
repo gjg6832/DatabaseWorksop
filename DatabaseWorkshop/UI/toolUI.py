@@ -36,8 +36,8 @@ def searchCategory():
     :return:
     """
     categ = input("Please enter the tool's category: ")
-    #printToolCategory(categ)
-    pass
+    printToolCategory(categ)
+
 
 def searchName():
     """
