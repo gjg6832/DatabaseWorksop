@@ -76,6 +76,7 @@ def newRequest():
     tool = toolDB.getTool(barcode)
     if tool[6] == 'flase':
         print("Tool is not Available")
+        return
     if tool[8] == None:
         print("This tool does not have a owner")
         print("Cant make a request")

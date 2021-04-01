@@ -35,6 +35,13 @@ def addToolOwner(username, barcode):
     connect.closeCursor(cursor)
 
 
+def editToolShareable(shareable,name):
+    cursor = connect.getCursor()
+    cursor.execute("update tool set shareable = %s where name = %s", [shareable, name])
+    connect.connectCommit()
+    connect.closeCursor(cursor)
+
+
 def deleteToolOwner(barcode):
     """
     delete a tool to a user
