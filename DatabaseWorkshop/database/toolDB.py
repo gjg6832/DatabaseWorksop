@@ -32,6 +32,7 @@ def addToolOwner(username, barcode):
     """
     cursor = connect.getCursor()
     cursor.execute("update tool set owner = %s where barcode = %s", [username, barcode])
+    cursor.execute("update tool set shareable = %s where barcode = %s", [True, barcode])
     connect.connectCommit()
     connect.closeCursor(cursor)
 
@@ -39,6 +40,12 @@ def addToolOwner(username, barcode):
 def editToolShareable(shareable,name):
     cursor = connect.getCursor()
     cursor.execute("update tool set shareable = %s where name = %s", [shareable, name])
+    connect.connectCommit()
+    connect.closeCursor(cursor)
+
+def editToolRequested(requested,barcode):
+    cursor = connect.getCursor()
+    cursor.execute("update tool set requested = %s where barcode = %s", [requested, barcode])
     connect.connectCommit()
     connect.closeCursor(cursor)
 

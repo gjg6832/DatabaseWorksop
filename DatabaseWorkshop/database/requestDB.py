@@ -7,9 +7,9 @@ from DatabaseWorkshop import connect
 
 def insertRequest(id, userrequesting, tool, owner, date, duration, status, returndate):
     cursor = connect.getCursor()
-    request = [id, userrequesting, tool, owner, date, duration, status]
+    request = [id, userrequesting, tool, owner, date, duration, status, returndate]
     cursor.execute(
-        "INSERT INTO request (id, userrequesting, toolrequested, owner, date, duration, status) VALUES (%s,%s,%s,%s,%s,%s,%s)",
+        "INSERT INTO request (id, userrequesting, toolrequested, owner, date, duration, status, returndate) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
         request)
     connect.connectCommit()
     connect.closeCursor(cursor)
