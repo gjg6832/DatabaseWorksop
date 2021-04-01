@@ -1,5 +1,6 @@
 from DatabaseWorkshop.database import personDB
 from DatabaseWorkshop.database import toolDB
+from DatabaseWorkshop.database import requestDB
 import random
 from datetime import date
 
@@ -71,3 +72,16 @@ def newRequest():
     userrequesting = input("Enter username: ")
     inputPassword = input("Enter password: ")
     password = personDB.getPassword(userrequesting)
+    barcode = input("Enter barcode of the tool: ")
+    tool = toolDB.getTool(barcode)
+    if tool[8] == None:
+        print("This tool does not have a owner")
+        print("Cant make a request")
+        print()
+        return
+    today = date.today()
+    duration = input("Enter duration wanted: ")
+    status = "Pending"
+    requestDB.insertRequest(id, userrequesting, tool[1], tool[8], today, duration, status)
+    print("Request has been made")
+    print()

@@ -38,8 +38,8 @@ def getPerson(username):
 
 def getPassword(username):
     cursor = connect.getCursor()
-    cursor.execute("select password from person where username = %s", [username])
-    password = cursor.fecthone()
+    password = cursor.execute("select password from person where username = %s", [username])
+
     connect.closeCursor(cursor)
     return password
 
