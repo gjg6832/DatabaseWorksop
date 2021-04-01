@@ -19,6 +19,9 @@ def access():
         catalogTool()
     elif newAction == "-r":
         catalogRequest()
+    else:
+        print(newAction,"Invalid action. Redirected to Main Page")
+
 
 
 def catalogTool():
@@ -149,6 +152,7 @@ def catalogRequest():
         requestDB.printRequesterOwner(username)
         print()
     elif newAction == "-m":
+        #TODO: When Accepted add expected return date
         print()
         requestDB.printRequesterOwner(username)
         print()
