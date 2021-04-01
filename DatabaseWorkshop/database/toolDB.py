@@ -3,6 +3,7 @@ File: toolDB
 Author: Greg Godlewski
 """
 from DatabaseWorkshop import connect
+from DatabaseWorkshop.database import requestDB
 
 
 def insertTool(barcode, name, description, categories, purchasedate, purchaseprice, sharable, requested):
@@ -98,12 +99,17 @@ def printToolBarcode(barcode):
 
     connect.closeCursor(cursor)
 
-def deleteTool(barcode):
+def checksIfToolIsRequested(name):
     """
-    Deletes a tool
+
     :param barcode:
     :return:
     """
+    cursor = connect.getCursor()
+    cursor.execute("select status from request where toolrequested = %s", [name])
+    status = cursor.fetchone()
+    connect.closeCursor(cursor)
+    return status[0]
 
 
 def printToolName(name):

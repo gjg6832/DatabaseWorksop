@@ -64,12 +64,13 @@ def catalogTool():
         print()
         barcode = input("Enter barcode of tool wanted to delete: ")
         tool = toolDB.getTool(barcode)
-        if tool[8] == username:
+        status = toolDB.checksIfToolIsRequested(tool[1])
+        if tool[8] == username and status != "Accepted":
             toolDB.deleteToolOwner(barcode)
             print("Tool has been deleted from your Catalog")
             print()
         else:
-            print("This tool is not in your catalog. You can not delete")
+            print("This tool is not in your catalog or This tool is lent")
             print()
     elif newAction == "-e":
         print()

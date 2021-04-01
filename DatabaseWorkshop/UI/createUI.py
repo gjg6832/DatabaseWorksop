@@ -82,7 +82,7 @@ def newRequest():
         print("Cant make a request")
         print()
         return
-    today = date.today()
+    today = input("Enter the date you want the tool FORMAT year-month-day: ")
     duration = input("Enter duration wanted: ")
     status = "Pending"
     returndate = None

@@ -41,6 +41,7 @@ def deleteRequest(id):
     connect.closeCursor(cursor)
 
 
+
 def printRequesterRequests(userrequesting):
     #TODO: Formant request better
     cursor = connect.getCursor()
