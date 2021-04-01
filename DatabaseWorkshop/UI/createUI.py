@@ -85,6 +85,7 @@ def newRequest():
     today = date.today()
     duration = input("Enter duration wanted: ")
     status = "Pending"
-    requestDB.insertRequest(id, userrequesting, tool[1], tool[8], today, duration, status)
+    returndate = None
+    requestDB.insertRequest(id, userrequesting, tool[1], tool[8], today, duration, status, returndate)
     print("Request has been made")
     print()

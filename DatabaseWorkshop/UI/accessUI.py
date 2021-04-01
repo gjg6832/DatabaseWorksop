@@ -5,6 +5,7 @@ Author: Greg Godlewski
 from DatabaseWorkshop.database import personDB
 from DatabaseWorkshop.database import toolDB
 from DatabaseWorkshop.database import requestDB
+from datetime import date
 
 
 def access():
@@ -152,18 +153,22 @@ def catalogRequest():
         requestDB.printRequesterOwner(username)
         print()
     elif newAction == "-m":
-        #TODO: When Accepted add expected return date
         print()
         requestDB.printRequesterOwner(username)
         print()
         id = input("Enter id of request you would like to manage: ")
         print()
         request = requestDB.getRequest(id)
+        if request == None:
+            "No request found with that id"
+            return
         print(request)
         print()
         status = input("Accept or Deny : ")
         if status == "Accept":
             requestDB.updateStatus("Accepted", id)
+            returndate = input("Enter return date in format Year-Month-Day: ")
+            requestDB.updateReturnDate(returndate,id)
             print()
             print("Request has been Accepted")
             print()

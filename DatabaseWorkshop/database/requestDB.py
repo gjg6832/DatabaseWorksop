@@ -5,7 +5,7 @@ Author: Greg Godlewski
 from DatabaseWorkshop import connect
 
 
-def insertRequest(id, userrequesting, tool, owner, date, duration, status):
+def insertRequest(id, userrequesting, tool, owner, date, duration, status, returndate):
     cursor = connect.getCursor()
     request = [id, userrequesting, tool, owner, date, duration, status]
     cursor.execute(
@@ -25,6 +25,12 @@ def getRequest(id):
 def updateStatus(status, id):
     cursor = connect.getCursor()
     cursor.execute("update request set status = %s where id = %s", [status, id])
+    connect.connectCommit()
+    connect.closeCursor(cursor)
+
+def updateReturnDate(returndate, id):
+    cursor = connect.getCursor()
+    cursor.execute("update request set returndate = %s where id = %s", [returndate, id])
     connect.connectCommit()
     connect.closeCursor(cursor)
 
@@ -65,3 +71,4 @@ def printRequesterOwner(owner):
     print()
 
     connect.closeCursor(cursor)
+
