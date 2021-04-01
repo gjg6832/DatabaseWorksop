@@ -10,6 +10,9 @@ def search():
     """
     print("Search action Menu")
     print("---------------------------")
+    print("-a: inspect available tools list")
+    print("-l: inspect lent tools list")
+    print("-w: inspect borrowed tools list")
     print("-b: search by barcode")
     print("-c: search by category")
     print("-n: search by name")
@@ -20,6 +23,12 @@ def search():
         searchCategory()
     elif newAction == "-n":
         searchName()
+    elif newAction == "-l":
+        printLentTools()
+    elif newAction == "-a":
+        printAvailableTools()
+    elif newAction == "-w":
+        printBorrowedTools()
 
 
 def searchBarcode():
@@ -46,3 +55,4 @@ def searchName():
     """
     tName = input("Please enter the tool's name: ")
     printToolName(tName)
+

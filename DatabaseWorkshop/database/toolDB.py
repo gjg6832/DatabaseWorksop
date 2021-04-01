@@ -56,7 +56,7 @@ def deleteTool(barcode):
 def printToolName(name):
     """
     prints a tool
-    :param barcode:
+    :param name:
     :return:
     """
     cursor = connect.getCursor()
@@ -78,7 +78,7 @@ def printToolName(name):
 def printToolCategory(category):
     """
     prints a tool
-    :param barcode:
+    :param category:
     :return:
     """
     cursor = connect.getCursor()
@@ -86,8 +86,70 @@ def printToolCategory(category):
         "select name from tool where categories = %s",
         [category])
     row = cursor.fetchall()
+    print()
+    print("Tool names:")
     for item in row:
-        print()
         print("Tool name: " + str(item[0]))
-        print()
+    print()
+
+    connect.closeCursor(cursor)
+
+def printAvailableTools():
+    """
+    prints al available tools
+    :param:
+    :return:
+    """
+    cursor = connect.getCursor()
+    cursor.execute(
+        "select name from tool where shareable is true order by name asc")
+    row = cursor.fetchall()
+    print()
+    print("Tool names:")
+    for item in row:
+        print(str(item[0]))
+    print()
+
+    connect.closeCursor(cursor)
+
+def printLentTools():
+    """
+    INCOMPLETE: waiting for overdue
+
+
+     prints all lent tools
+     :param:
+     :return:
+     """
+    cursor = connect.getCursor()
+    cursor.execute(
+        "select owner, userrequested, tooolrequested, date, duration, status from request where status = Accepted order by date asc")
+    row = cursor.fetchall()
+    print()
+    print("Owner: " + str(row[0][0]))
+    for item in row:
+        print(str(item[1]) + " has:/t" + str(item[2]) + "")
+    print()
+
+    connect.closeCursor(cursor)
+
+def printBorrowedTools():
+    """
+    INCOMPLETE: waiting for overdue
+    condition not defined properly
+
+    prints all borrowed tools
+    :param:
+    :return:
+    """
+    cursor = connect.getCursor()
+    cursor.execute(
+        "select owner, userrequesting, tooolrequested, date, duration, status from request where status = Accepted order by date asc")
+    row = cursor.fetchall()
+    print()
+    print("Tool names:")
+    for item in row:
+        print(str(item[1]) + "borrowed from " + str(item[0]))
+    print()
+
     connect.closeCursor(cursor)
