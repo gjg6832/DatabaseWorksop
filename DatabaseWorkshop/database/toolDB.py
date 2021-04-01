@@ -52,3 +52,28 @@ def deleteTool(barcode):
     :return:
     """
 
+
+def printToolName(name):
+    """
+    prints a tool
+    :param barcode:
+    :return:
+    """
+    cursor = connect.getCursor()
+    cursor.execute(
+        "select description, categories, purchasedate, purchaseprice, shareable, requested from tool where name = %s",
+        [name])
+    row = cursor.fetchone()
+    print()
+    print("Tool description: " + str(row[0]))
+    print("Tool categories: " + str(row[1]))
+    print("Purchase Date: " + str(row[2]))
+    print("Purchase Price: " + str(row[3]))
+    print("Shareable: " + str(row[4]))
+    print("Requested: " + str(row[5]))
+    print()
+
+    connect.closeCursor(cursor)
+
+
+

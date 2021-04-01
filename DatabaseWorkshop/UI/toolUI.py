@@ -18,7 +18,7 @@ def search():
         searchBarcode()
     elif newAction == "-c":
         searchCategory()
-    elif newAction == "n":
+    elif newAction == "-n":
         searchName()
 
 
@@ -31,7 +31,18 @@ def searchBarcode():
     printToolBarcode(idNum)
 
 def searchCategory():
+    """
+    search for a tool by category
+    :return:
+    """
+    categ = input("Please enter the tool's category: ")
+    #printToolCategory(categ)
     pass
 
 def searchName():
-    pass
+    """
+    search for a tool by name
+    :return:
+    """
+    tName = input("Please enter the tool's name: ")
+    printToolName(tName)
