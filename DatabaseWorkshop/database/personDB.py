@@ -5,9 +5,10 @@ Author: Greg Godlewski
 
 from DatabaseWorkshop import connect
 from datetime import date
+from datetime import datetime
 
 
-def insertPerson(username, password, first_name, last_name, email, creationdate, laccesdate):
+def insertPerson(username, password, first_name, last_name, email, creationdate, creationtime, laccesdate, laccesstime):
     """
     Inserts a user into the person table
     :param username: the username
@@ -18,8 +19,8 @@ def insertPerson(username, password, first_name, last_name, email, creationdate,
     :return: NONE
     """
     cursor = connect.getCursor()
-    person = [username, password, first_name, last_name, email, creationdate, laccesdate]
-    cursor.execute("INSERT INTO person (username, password, firstname, lastname, email, creationdate, laccessdate) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+    person = [username, password, first_name, last_name, email, creationdate, creationtime, laccesdate, laccesstime]
+    cursor.execute("INSERT INTO person (username, password, firstname, lastname, email, creationdate, creationtime, laccessdate, laccesstime) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
                    person)
     connect.connectCommit()
     connect.closeCursor(cursor)
@@ -48,8 +49,10 @@ def getPassword(username):
 
 def editDateAndTime(username):
     today = date.today()
+    now = datetime.now().time()
     cursor = connect.getCursor()
     cursor.execute("update person set laccessdate = %s where username = %s", [today, username])
+    cursor.execute("update person set laccesstime = %s where username = %s", [now, username])
     connect.connectCommit()
     connect.closeCursor(cursor)
 
