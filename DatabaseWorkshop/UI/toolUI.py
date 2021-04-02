@@ -17,6 +17,7 @@ def search():
     print("-b: search by barcode")
     print("-c: search by category")
     print("-n: search by name")
+    print()
     newAction = input("Enter new action: ")
     if newAction == "-b":
         searchBarcode()

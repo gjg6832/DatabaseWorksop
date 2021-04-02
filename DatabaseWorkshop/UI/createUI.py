@@ -39,7 +39,7 @@ def newUser():
     email = input("Enter your email: ")
     creationdate = date.today()
     creationtime = datetime.now().time()
-    personDB.insertPerson(username, password, first_name, last_name, email, creationdate, creationdate, creationtime, creationtime)
+    personDB.insertPerson(username, password, first_name, last_name, email, creationdate, creationtime, creationdate, creationtime)
     print("Account has been created")
     print()
 
@@ -61,6 +61,7 @@ def newTool():
     toolDB.insertTool(barcode, name, description,  categories, purchasedate, purchaseprice, shareable, requested)
 
 
+
 def newRequest():
     print()
     id = random.randint(1000,1999)
@@ -76,7 +77,7 @@ def newRequest():
         return
     barcode = input("Enter barcode of the tool: ")
     tool = toolDB.getTool(barcode)
-    if tool[6] == 'flase':
+    if tool[6] == "false":
         print("Tool is not Available")
         return
     if tool[8] == None:
@@ -92,3 +93,4 @@ def newRequest():
     toolDB.editToolRequested(True,barcode)
     print("Request has been made")
     print()
+
