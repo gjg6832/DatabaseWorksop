@@ -55,21 +55,24 @@ def catalogTool():
             print()
         else:
             toolDB.addToolOwner(username, barcode)
+            print("Tool has been added")
             print()
     elif newAction == "-v":
         print()
         print("List of Tools you own")
         toolDB.printToolOwner(username)
+        print()
     elif newAction == "-d":
         print()
         barcode = input("Enter barcode of tool wanted to delete: ")
         tool = toolDB.getTool(barcode)
-        if tool[8] == username:
+        status = toolDB.checksIfToolIsRequested(tool[1])
+        if tool[8] == username and status != "Accepted":
             toolDB.deleteToolOwner(barcode)
             print("Tool has been deleted from your Catalog")
             print()
         else:
-            print("This tool is not in your catalog. You can not delete")
+            print("This tool is not in your catalog or This tool is lent")
             print()
     elif newAction == "-e":
         print()
@@ -103,14 +106,15 @@ def catalogTool():
                 print("Description was changed to " + descrip)
                 print()
 
-            categorie = input("Enter new categorie: (leave blank if no edit wanted): ")
+            categorie = input("Enter new category (leave blank if no edit wanted): ")
             print()
             if categorie == "":
-                print("Categoie was not changed")
+                print("Category was not changed")
                 print()
             else:
                 toolDB.editToolCategorie(categorie,barcode)
-                print("Categorie was edited to: " + categorie)
+                print("Category was edited to: " + categorie)
+
 
 
 def catalogRequest():
@@ -135,10 +139,10 @@ def catalogRequest():
     print()
     newAction = input("Enter new action: ")
     if newAction == "-r":
+        requestDB.printRequesterRequests(username)
         print()
         id = input("Enter request id to be returned: ")
         request = requestDB.getRequest(id)
-        print(request)
         if request[1] == username:
             toolDB.editToolShareable(True, request[2])
             print()
@@ -160,9 +164,8 @@ def catalogRequest():
         print()
         request = requestDB.getRequest(id)
         if request == None:
-            "No request found with that id"
+            print("No request found with that id")
             return
-        print(request)
         print()
         status = input("Accept or Deny : ")
         if status == "Accept":
@@ -181,6 +184,7 @@ def catalogRequest():
             print()
             print("Not changed. Input was left empty or mistyped")
             print()
+
 
 
 

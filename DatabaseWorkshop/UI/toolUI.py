@@ -1,6 +1,7 @@
 """
 File: toolUI
 Author: Greg Godlewski
+        Saakshi D'Souza
 """
 from DatabaseWorkshop.database.toolDB import *
 def search():
@@ -16,6 +17,7 @@ def search():
     print("-b: search by barcode")
     print("-c: search by category")
     print("-n: search by name")
+    print()
     newAction = input("Enter new action: ")
     if newAction == "-b":
         searchBarcode()

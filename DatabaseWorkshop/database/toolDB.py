@@ -1,8 +1,13 @@
 """
 File: toolDB
 Author: Greg Godlewski
+        Saakshi D'Souza
 """
 from DatabaseWorkshop import connect
+from DatabaseWorkshop.database import requestDB
+from DatabaseWorkshop.database import personDB
+from datetime import timedelta
+from datetime import date
 
 
 def insertTool(barcode, name, description, categories, purchasedate, purchaseprice, sharable, requested):
@@ -31,6 +36,8 @@ def addToolOwner(username, barcode):
     """
     cursor = connect.getCursor()
     cursor.execute("update tool set owner = %s where barcode = %s", [username, barcode])
+    cursor.execute("update tool set shareable = %s where barcode = %s", [True, barcode])
+    cursor.execute("update tool set purchasedate = %s where barcode = %s", [date.today(), barcode])
     connect.connectCommit()
     connect.closeCursor(cursor)
 
@@ -38,6 +45,12 @@ def addToolOwner(username, barcode):
 def editToolShareable(shareable,name):
     cursor = connect.getCursor()
     cursor.execute("update tool set shareable = %s where name = %s", [shareable, name])
+    connect.connectCommit()
+    connect.closeCursor(cursor)
+
+def editToolRequested(requested,barcode):
+    cursor = connect.getCursor()
+    cursor.execute("update tool set requested = %s where barcode = %s", [requested, barcode])
     connect.connectCommit()
     connect.closeCursor(cursor)
 
@@ -51,6 +64,8 @@ def deleteToolOwner(barcode):
     """
     cursor = connect.getCursor()
     cursor.execute("update tool set owner = %s where barcode = %s", [None, barcode])
+    cursor.execute("update tool set shareable = %s where barcode = %s", [False, barcode])
+    cursor.execute("update tool set purchasedate = %s where barcode = %s", [None, barcode])
     connect.connectCommit()
     connect.closeCursor(cursor)
 
@@ -98,12 +113,20 @@ def printToolBarcode(barcode):
 
     connect.closeCursor(cursor)
 
-def deleteTool(barcode):
+def checksIfToolIsRequested(name):
     """
-    Deletes a tool
+
     :param barcode:
     :return:
     """
+    cursor = connect.getCursor()
+    cursor.execute("select status from request where toolrequested = %s", [name])
+    status = cursor.fetchone()
+    connect.closeCursor(cursor)
+    if status is None:
+        return None
+    else:
+        return status[0]
 
 
 def printToolName(name):
@@ -114,16 +137,17 @@ def printToolName(name):
     """
     cursor = connect.getCursor()
     cursor.execute(
-        "select description, categories, purchasedate, purchaseprice, shareable, requested from tool where name = %s",
+        "select barcode, description, categories, purchasedate, purchaseprice, shareable, requested from tool where name = %s",
         [name])
     row = cursor.fetchone()
     print()
-    print("Tool description: " + str(row[0]))
-    print("Tool categories: " + str(row[1]))
-    print("Purchase Date: " + str(row[2]))
-    print("Purchase Price: " + str(row[3]))
-    print("Shareable: " + str(row[4]))
-    print("Requested: " + str(row[5]))
+    print("Barcode: " + str(row[0]))
+    print("Tool description: " + str(row[1]))
+    print("Tool categories: " + str(row[2]))
+    print("Purchase Date: " + str(row[3]))
+    print("Purchase Price: " + str(row[4]))
+    print("Shareable: " + str(row[5]))
+    print("Requested: " + str(row[6]))
     print()
 
     connect.closeCursor(cursor)
@@ -160,6 +184,7 @@ def printToolOwner(owner):
     row = cursor.fetchall()
     print()
     print("Tool names:")
+    print()
     for item in row:
         print("Tool name: " + str(item[0]))
     print()
@@ -178,6 +203,7 @@ def printAvailableTools():
     row = cursor.fetchall()
     print()
     print("Tool names:")
+    print()
     for item in row:
         print(str(item[0]))
     print()
@@ -186,42 +212,42 @@ def printAvailableTools():
 
 def printLentTools():
     """
-    INCOMPLETE: waiting for overdue
-
-
      prints all lent tools
      :param:
      :return:
      """
     cursor = connect.getCursor()
     cursor.execute(
-        "select owner, userrequested, tooolrequested, date, duration, status from request where status = Accepted order by date asc")
+        "select userrequesting, toolrequested, date, duration, status from request where status = %s order by date asc", ["Accepted"])
     row = cursor.fetchall()
     print()
-    print("Owner: " + str(row[0][0]))
     for item in row:
-        print(str(item[1]) + " has:/t" + str(item[2]) + "")
+        if personDB.getToday() > item[2]+timedelta(days=int(item[3])):
+            print(str(item[0]) + " currently has:\t" + str(item[1]) + " OVERDUE")
+        else:
+            print(str(item[0]) + " currently has:\t" + str(item[1]))
+
     print()
 
     connect.closeCursor(cursor)
 
 def printBorrowedTools():
     """
-    INCOMPLETE: waiting for overdue
-    condition not defined properly
-
     prints all borrowed tools
     :param:
     :return:
     """
     cursor = connect.getCursor()
     cursor.execute(
-        "select owner, userrequesting, tooolrequested, date, duration, status from request where status = Accepted order by date asc")
+        "select owner, toolrequested, date, duration, status from request where status = %s order by date asc", ["Accepted"])
     row = cursor.fetchall()
     print()
-    print("Tool names:")
     for item in row:
-        print(str(item[1]) + "borrowed from " + str(item[0]))
+        if personDB.getToday() > item[2]+timedelta(days=int(item[3])):
+            print(str(item[0]) + " owns:\t" + str(item[1]) + " OVERDUE")
+        else:
+            print(str(item[0]) + " owns:\t" + str(item[1]))
     print()
 
     connect.closeCursor(cursor)
+
