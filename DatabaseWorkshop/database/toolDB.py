@@ -168,7 +168,7 @@ def printToolOwner(owner):
 
 def printAvailableTools():
     """
-    prints al available tools
+    prints all available tools
     :param:
     :return:
     """
