@@ -98,7 +98,7 @@ def printToolBarcode(barcode):
     :return:
     """
     cursor = connect.getCursor()
-    cursor.execute("select name, description, categories, purchasedate, purchaseprice, shareable, requested from tool where barcode = %s", [barcode])
+    cursor.execute("select name, description, categories, purchasedate, purchaseprice, shareable, requested, owner from tool where barcode = %s", [barcode])
 
     row = cursor.fetchone()
     print()
@@ -109,6 +109,7 @@ def printToolBarcode(barcode):
     print("Purchase Price: " + str(row[4]))
     print("Shareable: " + str(row[5]))
     print("Requested: " + str(row[6]))
+    print("Owner: " + str(row[7]))
     print()
 
     connect.closeCursor(cursor)
@@ -137,7 +138,7 @@ def printToolName(name):
     """
     cursor = connect.getCursor()
     cursor.execute(
-        "select barcode, description, categories, purchasedate, purchaseprice, shareable, requested from tool where name = %s",
+        "select barcode, description, categories, purchasedate, purchaseprice, shareable, requested, owner from tool where name = %s",
         [name])
     row = cursor.fetchone()
     print()
@@ -148,6 +149,7 @@ def printToolName(name):
     print("Purchase Price: " + str(row[4]))
     print("Shareable: " + str(row[5]))
     print("Requested: " + str(row[6]))
+    print("Owner: " + str(row[7]))
     print()
 
     connect.closeCursor(cursor)
