@@ -1,6 +1,7 @@
 """
 File: personDB
 Author: Greg Godlewski
+        Saakshi D'Souza
 """
 
 from DatabaseWorkshop import connect
@@ -55,4 +56,8 @@ def editDateAndTime(username):
     cursor.execute("update person set laccesstime = %s where username = %s", [now, username])
     connect.connectCommit()
     connect.closeCursor(cursor)
+
+def getToday():
+    return date.today()
+
 

@@ -1,9 +1,12 @@
 """
 File: toolDB
 Author: Greg Godlewski
+        Saakshi D'Souza
 """
 from DatabaseWorkshop import connect
 from DatabaseWorkshop.database import requestDB
+from DatabaseWorkshop.database import personDB
+from datetime import timedelta
 
 
 def insertTool(barcode, name, description, categories, purchasedate, purchaseprice, sharable, requested):
@@ -181,7 +184,7 @@ def printToolOwner(owner):
 
 def printAvailableTools():
     """
-    prints al available tools
+    prints all available tools
     :param:
     :return:
     """
@@ -199,42 +202,42 @@ def printAvailableTools():
 
 def printLentTools():
     """
-    INCOMPLETE: waiting for overdue
-
-
      prints all lent tools
      :param:
      :return:
      """
     cursor = connect.getCursor()
     cursor.execute(
-        "select owner, userrequested, tooolrequested, date, duration, status from request where status = Accepted order by date asc")
+        "select userrequesting, toolrequested, date, duration, status from request where status = %s order by date asc", ["Accepted"])
     row = cursor.fetchall()
     print()
-    print("Owner: " + str(row[0][0]))
     for item in row:
-        print(str(item[1]) + " has:/t" + str(item[2]) + "")
+        if personDB.getToday() > item[2]+timedelta(days=int(item[3])):
+            print(str(item[0]) + " currently has:\t" + str(item[1]) + " OVERDUE")
+        else:
+            print(str(item[0]) + " currently has:\t" + str(item[1]))
+
     print()
 
     connect.closeCursor(cursor)
 
 def printBorrowedTools():
     """
-    INCOMPLETE: waiting for overdue
-    condition not defined properly
-
     prints all borrowed tools
     :param:
     :return:
     """
     cursor = connect.getCursor()
     cursor.execute(
-        "select owner, userrequesting, tooolrequested, date, duration, status from request where status = Accepted order by date asc")
+        "select owner, toolrequested, date, duration, status from request where status = %s order by date asc", ["Accepted"])
     row = cursor.fetchall()
     print()
-    print("Tool names:")
     for item in row:
-        print(str(item[1]) + "borrowed from " + str(item[0]))
+        if personDB.getToday() > item[2]+timedelta(days=int(item[3])):
+            print(str(item[0]) + " owns:\t" + str(item[1]) + " OVERDUE")
+        else:
+            print(str(item[0]) + " owns:\t" + str(item[1]))
     print()
 
     connect.closeCursor(cursor)
+
