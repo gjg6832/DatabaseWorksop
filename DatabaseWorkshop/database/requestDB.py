@@ -52,7 +52,16 @@ def printRequesterRequests(userrequesting):
     print()
     print("Requests:")
     for item in row:
-        print("    Request: " + str(item))
+        print("    id: " + str(item[0]))
+        print("    User Requesting: " + str(item[1]))
+        print("    Tool Requested: " + str(item[2]))
+        print("    Owner: " + str(item[3]))
+        print("    Date: " + str(item[4]))
+        print("    Duration: " + str(item[5]))
+        print("    Status: " + str(item[6]))
+        print("    Return Date: " + str(item[7]))
+        print()
+        print()
     print()
 
     connect.closeCursor(cursor)
@@ -68,7 +77,17 @@ def printRequesterOwner(owner):
     print()
     print("Requests:")
     for item in row:
-        print("    Request: " + str(item))
+        print("    id: " + str(item[0]))
+        print("    User Requesting: " + str(item[1]))
+        print("    Tool Requested: " + str(item[2]))
+        print("    Owner: " + str(item[3]))
+        print("    Date: " + str(item[4]))
+        print("    Duration: " + str(item[5]))
+        print("    Status: " + str(item[6]))
+        print("    Return Date: " + str(item[7]))
+        print()
+        print()
+
     print()
 
     connect.closeCursor(cursor)
