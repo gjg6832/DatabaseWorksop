@@ -1,6 +1,7 @@
 from DatabaseWorkshop.database import personDB
 from DatabaseWorkshop.database import toolDB
 from DatabaseWorkshop.database import requestDB
+from DatabaseWorkshop.database import categoriesDB
 import random
 from datetime import date
 from datetime import datetime
@@ -16,6 +17,7 @@ def create():
     print("-u: create a new user")
     print("-t: create a new tool")
     print("-r: create a new request")
+    print("-c: add a new category")
     print()
     newAction = input("Enter new action: ")
     if newAction == "-u":
@@ -24,6 +26,8 @@ def create():
         newTool()
     elif newAction == "-r":
         newRequest()
+    elif newAction == "-c":
+        addCategory()
 
 
 def newUser():
@@ -93,4 +97,12 @@ def newRequest():
     toolDB.editToolRequested(True,barcode)
     print("Request has been made")
     print()
+
+def addCategory():
+    print()
+    barcode = input("Enter barcode for the Tool: ")
+    category = input("Enter the category wanted to add to the Tool: ")
+    print()
+    categoriesDB.insertCategory(barcode, category)
+    print("Category - " + category + "has been added")
 
