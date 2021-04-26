@@ -253,3 +253,35 @@ def printBorrowedTools():
 
     connect.closeCursor(cursor)
 
+def personalAvailableTools(owner):
+    cursor = connect.getCursor()
+    cursor.execute(
+        "select * from tool where owner = %s ", [owner])
+    row = cursor.fetchall()
+    i = 0
+    for item in row:
+        i += 1
+    connect.closeCursor(cursor)
+    return i
+
+def personalLentTools(owner):
+    cursor = connect.getCursor()
+    cursor.execute(
+        "select * from request where owner = %s ", [owner])
+    row = cursor.fetchall()
+    i = 0
+    for item in row:
+        i += 1
+    connect.closeCursor(cursor)
+    return i
+
+def personalBorrowedTools(owner):
+    cursor = connect.getCursor()
+    cursor.execute(
+        "select * from request where userrequesting = %s ", [owner])
+    row = cursor.fetchall()
+    i = 0
+    for item in row:
+        i += 1
+    connect.closeCursor(cursor)
+    return i

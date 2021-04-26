@@ -92,3 +92,11 @@ def printRequesterOwner(owner):
 
     connect.closeCursor(cursor)
 
+def alsoBorrowed(tool):
+    # TODO
+    cursor = connect.getCursor()
+    cursor.execute(
+        "select toolrequested from request where userrequesting = %s",
+        [tool])
+
+

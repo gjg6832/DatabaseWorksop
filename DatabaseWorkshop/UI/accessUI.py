@@ -14,12 +14,18 @@ def access():
     print("---------------------------")
     print("-c: Access catalog of tools ")
     print("-r: Access requests")
+    print("-d: Tool dashboard")
+    print("-s: Statistics")
     print()
     newAction = input("Enter new action: ")
     if newAction == "-c":
         catalogTool()
     elif newAction == "-r":
         catalogRequest()
+    elif newAction == "-d":
+        dashboard()
+    elif newAction == "-s":
+        statistics()
     else:
         print(newAction,"Invalid action. Redirected to Main Page")
 
@@ -185,6 +191,43 @@ def catalogRequest():
             print("Not changed. Input was left empty or mistyped")
             print()
 
+def dashboard():
+    print()
+    username = input("Enter Your Username: ")
+    password = input("Enter Your Password: ")
+    actual = personDB.getPassword(username)
+    if actual == password:
+        print("You have been signed in")
+        personDB.editDateAndTime(username)
+    else:
+        print("incorrect password or username")
+        print("")
+        return
+    available = toolDB.personalAvailableTools(username)
+    print()
+    print("Number of tools available from your Catalog: " + str(available))
+    lent = toolDB.personalLentTools(username)
+    print("Number of tools you lent: " + str(lent))
+    borrowed = toolDB.personalBorrowedTools(username)
+    print("Number of tools you borrowed : " + str(borrowed))
+    print("")
+
+def statistics():
+    print()
+    username = input("Enter Your Username: ")
+    password = input("Enter Your Password: ")
+    actual = personDB.getPassword(username)
+    if actual == password:
+        print("You have been signed in")
+        personDB.editDateAndTime(username)
+    else:
+        print("incorrect password or username")
+        print("")
+        return
+    print()
+    requestDB.personalMostLentTools()
+    requestDB.personalMostBorrowedTools()
+    print()
 
 
 
