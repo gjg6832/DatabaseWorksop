@@ -81,10 +81,10 @@ def newRequest():
         return
     barcode = input("Enter barcode of the tool: ")
     tool = toolDB.getTool(barcode)
-    if tool[6] == "false":
+    if tool[5] == "false":
         print("Tool is not Available")
         return
-    if tool[8] == None:
+    if tool[7] == None:
         print("This tool does not have a owner")
         print("Cant make a request")
         print()
@@ -93,7 +93,7 @@ def newRequest():
     duration = input("Enter duration wanted: ")
     status = "Pending"
     returndate = None
-    requestDB.insertRequest(id, userrequesting, tool[1], tool[8], today, duration, status, returndate)
+    requestDB.insertRequest(id, userrequesting, tool[1], tool[7], today, duration, status, returndate)
     toolDB.editToolRequested(True,barcode)
     print("Request has been made")
     print()
@@ -104,5 +104,5 @@ def addCategory():
     category = input("Enter the category wanted to add to the Tool: ")
     print()
     categoriesDB.insertCategory(barcode, category)
-    print("Category - " + category + "has been added")
+    print("Category - " + category + " has been added")
 

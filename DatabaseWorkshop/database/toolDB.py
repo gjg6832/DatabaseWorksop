@@ -98,18 +98,23 @@ def printToolBarcode(barcode):
     :return:
     """
     cursor = connect.getCursor()
-    cursor.execute("select name, description, categories, purchasedate, purchaseprice, shareable, requested, owner from tool where barcode = %s", [barcode])
+    cursor.execute("select name, description, purchasedate, purchaseprice, shareable, requested, owner from tool where barcode = %s", [barcode])
 
     row = cursor.fetchone()
     print()
     print("Tool Name: " + row[0])
     print("Tool description: " + str(row[1]))
-    print("Tool categories: " + str(row[2]))
-    print("Purchase Date: " + str(row[3]))
-    print("Purchase Price: " + str(row[4]))
-    print("Shareable: " + str(row[5]))
-    print("Requested: " + str(row[6]))
-    print("Owner: " + str(row[7]))
+    print("Purchase Date: " + str(row[2]))
+    print("Purchase Price: " + str(row[3]))
+    print("Shareable: " + str(row[4]))
+    print("Requested: " + str(row[5]))
+    print("Owner: " + str(row[6]))
+    cursor.execute(
+        "select category from categories where barcode = %s",
+        [barcode])
+    col = cursor.fetchall()
+    for item2 in col:
+        print("Tool name: " + str(item2[0]))
     print()
 
     connect.closeCursor(cursor)
@@ -138,18 +143,23 @@ def printToolName(name):
     """
     cursor = connect.getCursor()
     cursor.execute(
-        "select barcode, description, categories, purchasedate, purchaseprice, shareable, requested, owner from tool where name = %s",
+        "select barcode, description, purchasedate, purchaseprice, shareable, requested, owner from tool where name = %s",
         [name])
     row = cursor.fetchone()
     print()
     print("Barcode: " + str(row[0]))
     print("Tool description: " + str(row[1]))
-    print("Tool categories: " + str(row[2]))
-    print("Purchase Date: " + str(row[3]))
-    print("Purchase Price: " + str(row[4]))
-    print("Shareable: " + str(row[5]))
-    print("Requested: " + str(row[6]))
-    print("Owner: " + str(row[7]))
+    print("Purchase Date: " + str(row[2]))
+    print("Purchase Price: " + str(row[3]))
+    print("Shareable: " + str(row[4]))
+    print("Requested: " + str(row[5]))
+    print("Owner: " + str(row[6]))
+    cursor.execute(
+        "select category from categories where barcode = %s",
+        [row[0]])
+    col = cursor.fetchall()
+    for item2 in col:
+        print("Categories: " + str(item2[0]))
     print()
 
     connect.closeCursor(cursor)
@@ -162,13 +172,18 @@ def printToolCategory(category):
     """
     cursor = connect.getCursor()
     cursor.execute(
-        "select name from tool where categories = %s",
+        "select barcode from categories where category = %s",
         [category])
     row = cursor.fetchall()
     print()
     print("Tool names:")
     for item in row:
-        print("Tool name: " + str(item[0]))
+        cursor.execute(
+            "select name from tool where barcode = %s",
+            [item])
+        col = cursor.fetchall()
+        for item2 in col:
+            print("Tool name: " + str(item2[0]))
     print()
 
     connect.closeCursor(cursor)
@@ -285,3 +300,15 @@ def personalBorrowedTools(owner):
         i += 1
     connect.closeCursor(cursor)
     return i
+
+def mostRequestlyLentTools(owner):
+    cursor = connect.getCursor()
+    cursor.execute(
+        "select * from request where owner = %s ", [owner])
+    row = cursor.fetchall()
+    for i in row:
+        if i[6] == "Accepted":
+            daysLent = i[4] - i[7]
+            print(daysLent)
+            pDate = cursor.execute("select purchasedate from tool where name = %s ", [i[2]])
+            daysOwned =
