@@ -97,6 +97,7 @@ def newRequest():
     toolDB.editToolRequested(True,barcode)
     print("Request has been made")
     print()
+    requestDB.alsoBorrowed(tool)
 
 def addCategory():
     print()

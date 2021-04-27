@@ -286,7 +286,8 @@ def personalLentTools(owner):
     row = cursor.fetchall()
     i = 0
     for item in row:
-        i += 1
+        if item[6] == "Accepted":
+            i += 1
     connect.closeCursor(cursor)
     return i
 
@@ -297,7 +298,8 @@ def personalBorrowedTools(owner):
     row = cursor.fetchall()
     i = 0
     for item in row:
-        i += 1
+        if item[6] == "Accepted":
+            i += 1
     connect.closeCursor(cursor)
     return i
 
@@ -311,4 +313,4 @@ def mostRequestlyLentTools(owner):
             daysLent = i[4] - i[7]
             print(daysLent)
             pDate = cursor.execute("select purchasedate from tool where name = %s ", [i[2]])
-            daysOwned =
+            #daysOwned =

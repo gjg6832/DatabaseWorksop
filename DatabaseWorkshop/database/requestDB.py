@@ -93,10 +93,23 @@ def printRequesterOwner(owner):
     connect.closeCursor(cursor)
 
 def alsoBorrowed(tool):
-    # TODO
     cursor = connect.getCursor()
-    cursor.execute(
-        "select toolrequested from request where userrequesting = %s",
-        [tool])
-
+    cursor.execute("select category from categories where barcode = %s",
+        [tool[0]])
+    category = cursor.fetchone()
+    cursor.execute("select barcode from categories where category = %s",
+                   [category[0]])
+    row = cursor.fetchall()
+    print("Users also requested: ")
+    print()
+    count = 1
+    for i in row:
+        if count >= 4:
+            print()
+            return
+        cursor.execute("select name from tool where barcode = %s", [i])
+        name = cursor.fetchone()
+        print(str(count) + ": " + str(name[0]))
+        count += 1
+    print()
 
