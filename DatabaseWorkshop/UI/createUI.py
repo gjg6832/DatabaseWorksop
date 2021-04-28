@@ -106,4 +106,5 @@ def addCategory():
     print()
     categoriesDB.insertCategory(barcode, category)
     print("Category - " + category + " has been added")
+    print()
 

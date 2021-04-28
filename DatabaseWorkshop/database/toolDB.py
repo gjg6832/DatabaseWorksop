@@ -114,7 +114,7 @@ def printToolBarcode(barcode):
         [barcode])
     col = cursor.fetchall()
     for item2 in col:
-        print("Tool name: " + str(item2[0]))
+        print("Category: " + str(item2[0]))
     print()
 
     connect.closeCursor(cursor)
