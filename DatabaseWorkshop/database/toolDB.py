@@ -306,11 +306,31 @@ def personalBorrowedTools(owner):
 def mostRequestlyLentTools(owner):
     cursor = connect.getCursor()
     cursor.execute(
-        "select * from request where owner = %s ", [owner])
+        "select toolrequested, duration from request where owner = %s and status = 'Accepted' order by duration desc", [owner])
     row = cursor.fetchall()
-    for i in row:
-        if i[6] == "Accepted":
-            daysLent = i[4] - i[7]
-            print(daysLent)
-            pDate = cursor.execute("select purchasedate from tool where name = %s ", [i[2]])
-            #daysOwned =
+    print("Your Most Frequently Lent Tools: ")
+    count = 1
+    for item in row:
+        if count >= 10:
+            print()
+            return
+        print(str(count) + ": " + str(item[0]) + " Time: " + str(item[1]) + " Days")
+        count += 1
+    print()
+
+
+def personalMostBorrowedTools(owner):
+    cursor = connect.getCursor()
+    cursor.execute(
+        "select toolrequested, duration from request where userrequesting = %s and status = 'Accepted' order by "
+        "duration desc", [owner])
+    row = cursor.fetchall()
+    print("Your Most Frequently Borrowed Tools: ")
+    count = 1
+    for item in row:
+        if count >= 10:
+            print()
+            return
+        print(str(count) + ": " + str(item[0]) + " Time: " + str(item[1]) + " Days")
+        count += 1
+    print()

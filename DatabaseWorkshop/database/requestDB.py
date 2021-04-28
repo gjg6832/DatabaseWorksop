@@ -43,7 +43,6 @@ def deleteRequest(id):
 
 
 def printRequesterRequests(userrequesting):
-    #TODO: Formant request better
     cursor = connect.getCursor()
     cursor.execute(
         "select * from request where userrequesting = %s",
@@ -68,7 +67,6 @@ def printRequesterRequests(userrequesting):
 
 
 def printRequesterOwner(owner):
-    #TODO: Formant request better
     cursor = connect.getCursor()
     cursor.execute(
         "select * from request where owner = %s",

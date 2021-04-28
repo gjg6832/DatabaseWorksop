@@ -203,8 +203,10 @@ def dashboard():
         print("incorrect password or username")
         print("")
         return
-    available = toolDB.personalAvailableTools(username)
+
     print()
+    print("DASHBOARD:")
+    available = toolDB.personalAvailableTools(username)
     print("Number of tools available from your Catalog: " + str(available))
     lent = toolDB.personalLentTools(username)
     print("Number of tools you lent: " + str(lent))
@@ -225,8 +227,9 @@ def statistics():
         print("")
         return
     print()
-    requestDB.personalMostLentTools()
-    requestDB.personalMostBorrowedTools()
+    print("STATISTICS:")
+    toolDB.mostRequestlyLentTools(username)
+    toolDB.personalMostBorrowedTools(username)
     print()
 
 
